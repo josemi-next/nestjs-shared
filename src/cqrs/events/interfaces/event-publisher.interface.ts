@@ -1,4 +1,4 @@
-import { IEvent } from './event.interface';
+import { type IEvent } from './event.interface';
 
 /**
  * Event publisher interface

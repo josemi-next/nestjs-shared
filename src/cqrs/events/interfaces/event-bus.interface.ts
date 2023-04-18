@@ -1,6 +1,6 @@
 import type { Type } from '@nestjs/common';
-import { IEventHandler } from './event-handler.interface';
-import { IEvent } from './event.interface';
+import { type IEventHandler } from './event-handler.interface';
+import { type IEvent } from './event.interface';
 
 /** Event bus */
 export interface IEventBus {

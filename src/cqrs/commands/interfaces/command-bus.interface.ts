@@ -1,5 +1,5 @@
-import { Type } from '@nestjs/common';
-import { ICommandHandler } from './command-handler.interface';
+import { type Type } from '@nestjs/common';
+import { type ICommandHandler } from './command-handler.interface';
 
 /**
  * Command bus

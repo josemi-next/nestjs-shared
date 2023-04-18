@@ -1,4 +1,4 @@
-import { AggregateRoot } from '../../cqrs';
+import { type AggregateRoot } from '../../cqrs';
 
 /**
  * Repository

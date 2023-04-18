@@ -1,6 +1,6 @@
-import { Type } from '@nestjs/common';
+import { type Type } from '@nestjs/common';
 import { COMMAND_HANDLER_METADATA } from '../constants/command-handler-metadata.constants';
-import { ICommandHandler } from '../interfaces/command-handler.interface';
+import { type ICommandHandler } from '../interfaces/command-handler.interface';
 
 /**
  * Decorator that marks a class as a CQRS command handler. A command handler

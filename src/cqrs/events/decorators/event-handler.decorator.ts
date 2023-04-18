@@ -1,8 +1,8 @@
-import { Type } from '@nestjs/common';
+import { type Type } from '@nestjs/common';
 import { EVENTS_HANDLER_METADATA } from '../constants/event-handler-metadata.constants';
-import { IEventHandlerMetadata } from '../interfaces/event-handler-metadata.interface';
-import { IEventHandler } from '../interfaces/event-handler.interface';
-import { IEvent } from '../interfaces/event.interface';
+import { type IEventHandlerMetadata } from '../interfaces/event-handler-metadata.interface';
+import { type IEventHandler } from '../interfaces/event-handler.interface';
+import { type IEvent } from '../interfaces/event.interface';
 
 /**
  * Decorator that marks a class as an event handler. An event handler

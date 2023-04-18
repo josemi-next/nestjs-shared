@@ -1,4 +1,4 @@
-import { IValueObject } from '../interfaces/value-object.interface';
+import { type IValueObject } from '../interfaces/value-object.interface';
 
 /**
  * Primitive based value object

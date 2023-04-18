@@ -1,11 +1,11 @@
-import { Injectable, Type } from '@nestjs/common';
+import { Injectable, type Type } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { EVENTS_HANDLER_METADATA } from '../constants/event-handler-metadata.constants';
 import { UnregisteredEventHandlerException } from '../exceptions/unregistered-event-handler.exception';
-import { IEventBus } from '../interfaces/event-bus.interface';
-import { IEventHandlerMetadata } from '../interfaces/event-handler-metadata.interface';
-import { IEventHandler } from '../interfaces/event-handler.interface';
-import { IEvent } from '../interfaces/event.interface';
+import { type IEventBus } from '../interfaces/event-bus.interface';
+import { type IEventHandlerMetadata } from '../interfaces/event-handler-metadata.interface';
+import { type IEventHandler } from '../interfaces/event-handler.interface';
+import { type IEvent } from '../interfaces/event.interface';
 
 @Injectable()
 export class SyncEventBus implements IEventBus {
@@ -36,7 +36,9 @@ export class SyncEventBus implements IEventBus {
 	 * @param eventHandlers Event handlers array
 	 */
 	public registerMany(eventHandlers: Array<Type<IEventHandler>>): void {
-		eventHandlers.forEach(handler => this.register(handler));
+		eventHandlers.forEach(handler => {
+			this.register(handler);
+		});
 	}
 
 	/**

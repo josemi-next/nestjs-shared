@@ -1,5 +1,5 @@
 import uuid from 'uuid-random';
-import { IEvent } from './interfaces/event.interface';
+import { type IEvent } from './interfaces/event.interface';
 
 export abstract class EventBase<TPayload extends Record<string, any>> implements IEvent<TPayload> {
 	/** Event unique id */

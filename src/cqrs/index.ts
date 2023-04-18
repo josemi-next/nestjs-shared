@@ -6,8 +6,8 @@ export { CommandBus } from './commands/buses/command-bus';
 export { CommandHandler } from './commands/decorators/command-handler.decorator';
 export { InjectCommandBus } from './commands/decorators/inject-command-bus.decorator';
 // Interfaces
-export { ICommandBus } from './commands/interfaces/command-bus.interface';
-export { ICommandHandler } from './commands/interfaces/command-handler.interface';
+export type { ICommandBus } from './commands/interfaces/command-bus.interface';
+export type { ICommandHandler } from './commands/interfaces/command-handler.interface';
 // #endregion
 // #region Common
 // Aggregate root
@@ -15,7 +15,7 @@ export { AggregateRoot } from './common/aggregate-root';
 // Module
 export { CqrsModule } from './common/cqrs.module';
 // Interfaces
-export {
+export type {
 	CqrsModuleAsyncOptions,
 	CqrsModuleBusImplementations,
 	CqrsModuleOptions,
@@ -31,10 +31,10 @@ export { InjectEventPublisher } from './events/decorators/inject-event-publisher
 // Base
 export { EventBase } from './events/event-base';
 // Interfaces
-export { IEventBus } from './events/interfaces/event-bus.interface';
-export { IEventHandler } from './events/interfaces/event-handler.interface';
-export { IEventPublisher } from './events/interfaces/event-publisher.interface';
-export { IEvent } from './events/interfaces/event.interface';
+export type { IEventBus } from './events/interfaces/event-bus.interface';
+export type { IEventHandler } from './events/interfaces/event-handler.interface';
+export type { IEventPublisher } from './events/interfaces/event-publisher.interface';
+export type { IEvent } from './events/interfaces/event.interface';
 // Publishers
 export { EventPublisher } from './events/publishers/event-publisher';
 // #endregion
@@ -46,6 +46,6 @@ export { QueryBus } from './queries/buses/query-bus';
 export { InjectQueryBus } from './queries/decorators/inject-query-bus.decorator';
 export { QueryHandler } from './queries/decorators/query-handler.decorator';
 // Interfaces
-export { IQueryBus } from './queries/interfaces/query-bus.interface';
-export { IQueryHandler } from './queries/interfaces/query-handler.interface';
+export type { IQueryBus } from './queries/interfaces/query-bus.interface';
+export type { IQueryHandler } from './queries/interfaces/query-handler.interface';
 // #endregion

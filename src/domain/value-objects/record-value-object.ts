@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'node:assert/strict';
-import { IValueObject } from '../interfaces/value-object.interface';
+import { type IValueObject } from '../interfaces/value-object.interface';
 
 /**
  * Object based value object

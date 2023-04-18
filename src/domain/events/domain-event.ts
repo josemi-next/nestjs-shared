@@ -1,5 +1,5 @@
 import uuid from 'uuid-random';
-import { IEvent } from '../../cqrs';
+import { type IEvent } from '../../cqrs';
 
 export class DomainEvent<T extends Record<string, any> = any> implements IEvent<T> {
 	public readonly id: string;

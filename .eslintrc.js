@@ -15,5 +15,6 @@ module.exports = {
 		'@typescript-eslint/strict-boolean-expressions': 'off',
 		'@typescript-eslint/promise-function-async': 'off',
 		'@typescript-eslint/method-signature-style': 'off',
+		'@typescript-eslint/restrict-template-expressions': 'off',
 	},
 };

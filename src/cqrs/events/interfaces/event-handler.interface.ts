@@ -1,4 +1,4 @@
-import { IEvent } from './event.interface';
+import { type IEvent } from './event.interface';
 
 /** Event handler */
 export interface IEventHandler<TEvent extends IEvent = IEvent> {

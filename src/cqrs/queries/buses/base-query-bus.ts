@@ -1,10 +1,10 @@
-import { Type } from '@nestjs/common';
-import { ModuleRef } from '@nestjs/core';
+import { type Type } from '@nestjs/common';
+import { type ModuleRef } from '@nestjs/core';
 import { QUERY_HANDLER_METADATA } from '../constants/query-handler-metadata.constants';
 import { QueryHandlerNotFoundException } from '../exceptions/query-handler-not-found.exception';
 import { UnregisteredQueryHandlerException } from '../exceptions/unregistered-query-handler.exception';
-import { IQueryBus } from '../interfaces/query-bus.interface';
-import { IQueryHandler } from '../interfaces/query-handler.interface';
+import { type IQueryBus } from '../interfaces/query-bus.interface';
+import { type IQueryHandler } from '../interfaces/query-handler.interface';
 
 /**
  *	Base query bus
@@ -33,7 +33,9 @@ export abstract class BaseQueryBus implements IQueryBus {
 	 * @param handlers Handlers
 	 */
 	public register(handlers: Array<Type<IQueryHandler>> = []): void {
-		handlers.forEach(handler => this.registerHandler(handler));
+		handlers.forEach(handler => {
+			this.registerHandler(handler);
+		});
 	}
 
 	/**

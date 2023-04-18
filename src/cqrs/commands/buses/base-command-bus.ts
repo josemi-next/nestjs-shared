@@ -1,10 +1,10 @@
-import { Type } from '@nestjs/common';
-import { ModuleRef } from '@nestjs/core';
+import { type Type } from '@nestjs/common';
+import { type ModuleRef } from '@nestjs/core';
 import { COMMAND_HANDLER_METADATA } from '../constants/command-handler-metadata.constants';
 import { CommandHandlerNotFoundException } from '../exceptions/command-handler-not-found.exception';
 import { UnregisteredCommandHandlerException } from '../exceptions/unregistered-command-handler.exception';
-import { ICommandBus } from '../interfaces/command-bus.interface';
-import { ICommandHandler } from '../interfaces/command-handler.interface';
+import { type ICommandBus } from '../interfaces/command-bus.interface';
+import { type ICommandHandler } from '../interfaces/command-handler.interface';
 
 /**
  *	Base command bus
@@ -33,7 +33,9 @@ export abstract class BaseCommandBus implements ICommandBus {
 	 * @param handlers Handlers
 	 */
 	public register(handlers: Array<Type<ICommandHandler>> = []): void {
-		handlers.forEach(handler => this.registerHandler(handler));
+		handlers.forEach(handler => {
+			this.registerHandler(handler);
+		});
 	}
 
 	/**

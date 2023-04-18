@@ -1,4 +1,4 @@
-import { IEvent } from '../events/interfaces/event.interface';
+import { type IEvent } from '../events/interfaces/event.interface';
 
 const INTERNAL_EVENTS = Symbol('InternalEvents');
 

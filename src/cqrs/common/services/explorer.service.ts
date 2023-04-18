@@ -1,15 +1,15 @@
-import { Injectable, Type } from '@nestjs/common';
+import { Injectable, type Type } from '@nestjs/common';
 import { ModulesContainer } from '@nestjs/core';
-import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
-import { Module } from '@nestjs/core/injector/module';
+import { type InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
+import { type Module } from '@nestjs/core/injector/module';
 import { COMMAND_HANDLER_METADATA } from '../../commands/constants/command-handler-metadata.constants';
-import { ICommandHandler } from '../../commands/interfaces/command-handler.interface';
+import { type ICommandHandler } from '../../commands/interfaces/command-handler.interface';
 import { EVENTS_HANDLER_METADATA } from '../../events/constants/event-handler-metadata.constants';
-import { IEventHandler } from '../../events/interfaces/event-handler.interface';
+import { type IEventHandler } from '../../events/interfaces/event-handler.interface';
 import { QUERY_HANDLER_METADATA } from '../../queries/constants/query-handler-metadata.constants';
-import { IQueryHandler } from '../../queries/interfaces/query-handler.interface';
+import { type IQueryHandler } from '../../queries/interfaces/query-handler.interface';
 
-import { ICqrsOptions } from '../interfaces/cqrs-options.interface';
+import { type ICqrsOptions } from '../interfaces/cqrs-options.interface';
 
 /**
  * Nest application modules explorer

@@ -1,4 +1,9 @@
-import { DynamicModule, Module, OnApplicationBootstrap, Provider } from '@nestjs/common';
+import {
+	Module,
+	type DynamicModule,
+	type OnApplicationBootstrap,
+	type Provider,
+} from '@nestjs/common';
 import { CommandBus } from '../commands/buses/command-bus';
 import {
 	DITokenCommandBus,
@@ -16,9 +21,9 @@ import { QueryBus } from '../queries/buses/query-bus';
 import { DITokenQueryBus, InjectQueryBus } from '../queries/decorators/inject-query-bus.decorator';
 import { IQueryBus } from '../queries/interfaces/query-bus.interface';
 import {
-	CqrsModuleAsyncOptions,
-	CqrsModuleBusImplementations,
-	CqrsModuleOptions,
+	type CqrsModuleAsyncOptions,
+	type CqrsModuleBusImplementations,
+	type CqrsModuleOptions,
 } from './interfaces/cqrs-module-options.interface';
 import { ExplorerService } from './services/explorer.service';
 

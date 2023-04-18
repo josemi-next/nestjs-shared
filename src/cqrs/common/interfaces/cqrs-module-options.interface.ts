@@ -1,8 +1,8 @@
-import { DynamicModule, ForwardReference, Type } from '@nestjs/common';
-import { ICommandBus } from '../../commands/interfaces/command-bus.interface';
-import { IEventBus } from '../../events/interfaces/event-bus.interface';
-import { IEventPublisher } from '../../events/interfaces/event-publisher.interface';
-import { IQueryBus } from '../../queries/interfaces/query-bus.interface';
+import { type DynamicModule, type ForwardReference, type Type } from '@nestjs/common';
+import { type ICommandBus } from '../../commands/interfaces/command-bus.interface';
+import { type IEventBus } from '../../events/interfaces/event-bus.interface';
+import { type IEventPublisher } from '../../events/interfaces/event-publisher.interface';
+import { type IQueryBus } from '../../queries/interfaces/query-bus.interface';
 
 /** CQRS buses implementation */
 export interface CqrsModuleBusImplementations {

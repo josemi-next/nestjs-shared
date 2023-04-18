@@ -1,7 +1,7 @@
 import { InjectEventBus } from '../decorators/inject-event-bus.decorator';
 import { IEventBus } from '../interfaces/event-bus.interface';
-import { IEventPublisher } from '../interfaces/event-publisher.interface';
-import { IEvent } from '../interfaces/event.interface';
+import { type IEventPublisher } from '../interfaces/event-publisher.interface';
+import { type IEvent } from '../interfaces/event.interface';
 
 /**
  * Event publisher implementation

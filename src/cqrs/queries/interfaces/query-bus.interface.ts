@@ -1,5 +1,5 @@
-import { Type } from '@nestjs/common';
-import { IQueryHandler } from './query-handler.interface';
+import { type Type } from '@nestjs/common';
+import { type IQueryHandler } from './query-handler.interface';
 
 /**
  * Query bus

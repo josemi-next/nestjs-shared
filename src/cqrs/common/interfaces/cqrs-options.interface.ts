@@ -1,7 +1,7 @@
-import { Type } from '@nestjs/common';
-import { ICommandHandler } from '../../commands/interfaces/command-handler.interface';
-import { IEventHandler } from '../../events/interfaces/event-handler.interface';
-import { IQueryHandler } from '../../queries/interfaces/query-handler.interface';
+import { type Type } from '@nestjs/common';
+import { type ICommandHandler } from '../../commands/interfaces/command-handler.interface';
+import { type IEventHandler } from '../../events/interfaces/event-handler.interface';
+import { type IQueryHandler } from '../../queries/interfaces/query-handler.interface';
 
 /** CQRS module options */
 export interface ICqrsOptions {
