@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.1](https://github.com/josemi-next/nestjs-shared/compare/v1.1.0...v1.1.1) (2023-04-18)
+
+### Bug Fixes
+
+- record value object validate ([32c4841](https://github.com/josemi-next/nestjs-shared/commit/32c484126c48b59644f80d7ac5a3b5711595d9ef))
+
 ## [1.1.0](https://github.com/josemi-next/nestjs-shared/compare/v1.0.0...v1.1.0) (2023-04-18)
 
 ### Features
