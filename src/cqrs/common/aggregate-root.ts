@@ -18,7 +18,7 @@ export abstract class AggregateRoot {
 	}
 
 	public getAndResetEvents(): IEvent[] {
-		const events = this.getEvents();
+		const events = [...this.getEvents()];
 		this.resetEvents();
 
 		return events;
