@@ -12,7 +12,7 @@ export abstract class RecordValueObject<T extends Record<string, any>> implement
 	constructor(public readonly value: T) {
 		this.value = Object.freeze(value);
 
-		if (value === null || value === undefined || this.validate(value))
+		if (value === null || value === undefined || !this.validate(value))
 			// TODO: Replace with custom error
 			throw new Error(`"${JSON.stringify(value)}" is not a valid ${this.constructor.name}`);
 	}
