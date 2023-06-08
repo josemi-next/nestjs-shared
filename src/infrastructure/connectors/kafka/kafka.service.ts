@@ -6,10 +6,9 @@ import {
 	type OnModuleDestroy,
 	type OnModuleInit,
 } from '@nestjs/common';
-import { Kafka, Partitioners, type Consumer, type Producer } from 'kafkajs';
+import { Kafka, Partitioners, type Consumer, type Message, type Producer } from 'kafkajs';
 import { KafkaModuleConfig } from './kafka.config';
 import { SUBSCRIBER_FN_REF_MAP, SUBSCRIBER_OBJ_REF_MAP } from './kafka.decorator';
-import { type KafkaPayload } from './kafka.payload';
 
 export const KAFKA_OPTIONS = Symbol('KAFKA_OPTIONS');
 
@@ -53,17 +52,27 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 	}
 
 	async connect() {
-		if (!this.producer && !this.consumer)
-			throw new InternalServerErrorException(
-				'No configuration for producer or consumer, check module options'
-			);
-		await this.producer?.connect();
-		await this.consumer?.connect();
+		try {
+			if (!this.producer && !this.consumer)
+				throw new InternalServerErrorException(
+					'No configuration for producer or consumer, check module options'
+				);
+			await this.producer?.connect();
+			await this.consumer?.connect();
+		} catch (e) {
+			this.logger.error(e);
+			throw e;
+		}
 	}
 
 	async disconnect() {
-		await this.producer?.disconnect();
-		await this.consumer?.disconnect();
+		try {
+			await this.producer?.disconnect();
+			await this.consumer?.disconnect();
+		} catch (e) {
+			this.logger.error(e);
+			throw e;
+		}
 	}
 
 	async bindAllTopicToConsumer(callback: any, topic: string) {
@@ -78,23 +87,19 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 		});
 	}
 
-	async sendMessage(kafkaTopic: string, kafkaPayload: KafkaPayload) {
-		this.logger.log(
-			`OPTIONS: ${JSON.stringify(this.kafkaConfig)} TOPIC: ${kafkaTopic}, PAYLOAD: ${JSON.stringify(
-				kafkaPayload
-			)}`
-		);
+	async sendMessage(kafkaTopic: string, kafkaMessages: Message[]) {
 		if (!this.producer) {
 			throw new InternalServerErrorException('No configuration for producer, check module options');
 		}
+
 		try {
 			const metadata = await this.producer.send({
 				topic: kafkaTopic,
-				messages: [{ value: JSON.stringify(kafkaPayload) }],
+				messages: kafkaMessages,
 			});
 			return metadata;
 		} catch (e) {
-			this.logger.log(e);
+			this.logger.error(e);
 			throw new InternalServerErrorException('Error sending message via kafka');
 		}
 	}
