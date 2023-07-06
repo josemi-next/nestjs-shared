@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.1.0](https://github.com/josemi-next/nestjs-shared/compare/v2.0.0...v2.1.0) (2023-07-06)
+
+### Features
+
+- soap module ([b84a654](https://github.com/josemi-next/nestjs-shared/commit/b84a654446478e175718aa9e9c47d2bcfb6e1eee))
+
 ## [2.0.0](https://github.com/josemi-next/nestjs-shared/compare/v1.1.2...v2.0.0) (2023-06-08)
 
 ### ⚠ BREAKING CHANGES
