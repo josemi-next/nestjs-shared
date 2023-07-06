@@ -8,3 +8,8 @@ export { SubscribeTo } from './connectors/kafka/kafka.decorator';
 export { KafkaModule } from './connectors/kafka/kafka.module';
 export { KafkaPayload } from './connectors/kafka/kafka.payload';
 export { KafkaService } from './connectors/kafka/kafka.service';
+
+// SOAP
+
+export * from './connectors/soap/soap-module-options.type';
+export * from './connectors/soap/soap.module';
