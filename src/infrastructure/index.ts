@@ -3,6 +3,7 @@ export { RepositoryImplementation } from './repository/repository';
 export { ViewRepositoryImplementation } from './repository/view-repository';
 
 // Kafka
+export { AbstractKafkaConsumer } from './connectors/kafka/kafka-consumer';
 export { type KafkaModuleConfig } from './connectors/kafka/kafka.config';
 export { SubscribeTo } from './connectors/kafka/kafka.decorator';
 export { KafkaModule } from './connectors/kafka/kafka.module';

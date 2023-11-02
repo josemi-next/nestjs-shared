@@ -6,6 +6,7 @@ import { type IEvent } from '../interfaces/event.interface';
 /**
  * Event publisher implementation
  */
+// TODO Decorator @Injectable() because is a provider as EventBus, CommandBus and QueryBus
 export class EventPublisher implements IEventPublisher {
 	/**
 	 * Dependency injection
@@ -13,7 +14,7 @@ export class EventPublisher implements IEventPublisher {
 	 */
 	constructor(
 		@InjectEventBus()
-		private readonly eventBus: IEventBus
+		private readonly eventBus: IEventBus,
 	) {}
 
 	/**
