@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.1.1](https://github.com/josemi-next/nestjs-shared/compare/v2.1.0...v2.1.1) (2023-11-02)
+
+### Bug Fixes
+
+- kafka subscriber abstract class and update deps ([38da4a9](https://github.com/josemi-next/nestjs-shared/commit/38da4a958b5c8ee81bd5a596226110f0f3d5050d))
+
 ## [2.1.0](https://github.com/josemi-next/nestjs-shared/compare/v2.0.0...v2.1.0) (2023-07-06)
 
 ### Features
