@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.1.2](https://github.com/josemi-next/nestjs-shared/compare/v2.1.1...v2.1.2) (2023-11-03)
+
+### Bug Fixes
+
+- removed random consumerSuffix ([5b23c24](https://github.com/josemi-next/nestjs-shared/commit/5b23c24721544da495a8c9e14dd25a8c4ac0c862))
+
 ## [2.1.1](https://github.com/josemi-next/nestjs-shared/compare/v2.1.0...v2.1.1) (2023-11-02)
 
 ### Bug Fixes

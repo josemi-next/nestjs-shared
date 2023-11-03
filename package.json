@@ -1,6 +1,6 @@
 {
 	"name": "nestjs-shared",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"description": "Components and libraries shared among applications with NestJS",
 	"scripts": {
 		"build": "tsc",
