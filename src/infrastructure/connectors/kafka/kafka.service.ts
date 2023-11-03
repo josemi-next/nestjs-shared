@@ -6,9 +6,18 @@ import {
 	type OnModuleDestroy,
 	type OnModuleInit,
 } from '@nestjs/common';
-import { Kafka, Partitioners, type Consumer, type Message, type Producer } from 'kafkajs';
+import {
+	Kafka,
+	Partitioners,
+	type Consumer,
+	type Message,
+	type Producer,
+} from 'kafkajs';
 import { KafkaModuleConfig } from './kafka.config';
-import { SUBSCRIBER_FN_REF_MAP, SUBSCRIBER_OBJ_REF_MAP } from './kafka.decorator';
+import {
+	SUBSCRIBER_FN_REF_MAP,
+	SUBSCRIBER_OBJ_REF_MAP,
+} from './kafka.decorator';
 
 export const KAFKA_OPTIONS = Symbol('KAFKA_OPTIONS');
 
@@ -18,9 +27,10 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 	private readonly kafka: Kafka;
 	private readonly producer?: Producer;
 	private readonly consumer?: Consumer;
-	private readonly consumerSuffix = `-${Math.floor(Math.random() * 100000)}`;
 
-	constructor(@Inject(KAFKA_OPTIONS) private readonly kafkaConfig: KafkaModuleConfig) {
+	constructor(
+		@Inject(KAFKA_OPTIONS) private readonly kafkaConfig: KafkaModuleConfig,
+	) {
 		this.kafka = new Kafka(this.kafkaConfig.connectionConfig);
 
 		this.producer = this.kafkaConfig.producerEnabled
@@ -33,7 +43,7 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 		this.consumer = this.kafkaConfig.consumerEnabled
 			? this.kafka.consumer({
 					...this.kafkaConfig.consumerConfig,
-					groupId: `${this.kafkaConfig.consumerConfig.groupId}${this.consumerSuffix}`,
+					groupId: this.kafkaConfig.consumerConfig.groupId,
 			  })
 			: undefined;
 	}
@@ -55,7 +65,7 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 		try {
 			if (!this.producer && !this.consumer)
 				throw new InternalServerErrorException(
-					'No configuration for producer or consumer, check module options'
+					'No configuration for producer or consumer, check module options',
 				);
 			await this.producer?.connect();
 			await this.consumer?.connect();
@@ -89,7 +99,9 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 
 	async sendMessage(kafkaTopic: string, kafkaMessages: Message[]) {
 		if (!this.producer) {
-			throw new InternalServerErrorException('No configuration for producer, check module options');
+			throw new InternalServerErrorException(
+				'No configuration for producer, check module options',
+			);
 		}
 
 		try {
