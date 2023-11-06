@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.1.3](https://github.com/josemi-next/nestjs-shared/compare/v2.1.2...v2.1.3) (2023-11-06)
+
+### Bug Fixes
+
+- allows nesting of kafka decorator with other decorators ([6a36c75](https://github.com/josemi-next/nestjs-shared/commit/6a36c7514ed15949511521c671d5fccb6f6660f4))
+
 ## [2.1.2](https://github.com/josemi-next/nestjs-shared/compare/v2.1.1...v2.1.2) (2023-11-03)
 
 ### Bug Fixes
