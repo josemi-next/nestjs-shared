@@ -1,11 +1,11 @@
 import {
 	Inject,
 	Injectable,
-	InternalServerErrorException,
 	Logger,
 	type OnModuleDestroy,
 	type OnModuleInit,
 } from '@nestjs/common';
+import { DiscoveryService, MetadataScanner } from '@nestjs/core';
 import {
 	Kafka,
 	Partitioners,
@@ -13,13 +13,18 @@ import {
 	type Message,
 	type Producer,
 } from 'kafkajs';
-import { KafkaModuleConfig } from './kafka.config';
-import {
-	SUBSCRIBER_FN_REF_MAP,
-	SUBSCRIBER_OBJ_REF_MAP,
-} from './kafka.decorator';
+import { KafkaConsumer, SubscribeTo } from './kafka.decorator';
+import { KafkaModuleConfig } from './kafka.types';
 
 export const KAFKA_OPTIONS = Symbol('KAFKA_OPTIONS');
+
+type KafkaMetadata = Record<
+	string,
+	{
+		instance: any;
+		methodName: string;
+	}
+>;
 
 @Injectable()
 export class KafkaService implements OnModuleInit, OnModuleDestroy {
@@ -27,9 +32,12 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 	private readonly kafka: Kafka;
 	private readonly producer?: Producer;
 	private readonly consumer?: Consumer;
+	private metadataMethods: KafkaMetadata;
 
 	constructor(
 		@Inject(KAFKA_OPTIONS) private readonly kafkaConfig: KafkaModuleConfig,
+		private readonly discoveryService: DiscoveryService,
+		private readonly metadataScanner: MetadataScanner,
 	) {
 		this.kafka = new Kafka(this.kafkaConfig.connectionConfig);
 
@@ -51,10 +59,70 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 	async onModuleInit(): Promise<void> {
 		await this.connect();
 
-		for (const fnRef of SUBSCRIBER_FN_REF_MAP) {
-			const [topic, functionRef] = fnRef;
-			await this.bindAllTopicToConsumer(functionRef, topic);
+		const kafkaConsumers = this.discoveryService.getProviders({
+			metadataKey: KafkaConsumer.KEY,
+		});
+
+		if (kafkaConsumers.length && !this.consumer) {
+			this.logger.warn(
+				'Consumer must be enabled and configured on module to use kafka consumers',
+			);
+			return;
 		}
+
+		for (const kafkaConsumer of kafkaConsumers) {
+			const methodNames = this.metadataScanner.getAllMethodNames(
+				kafkaConsumer.metatype.prototype,
+			);
+
+			this.metadataMethods = methodNames
+				.map(methodName => {
+					const metadata = this.discoveryService.getMetadataByDecorator(
+						SubscribeTo,
+						kafkaConsumer,
+						methodName,
+					);
+
+					if (!metadata) return null;
+
+					return {
+						...metadata,
+						methodName,
+					};
+				})
+				.reduce((accum, current) => {
+					if (!current) return accum;
+
+					return {
+						...accum,
+						[current.topic]: {
+							methodName: current.methodName,
+							instance: kafkaConsumer.instance,
+						},
+					};
+				}, {}) as KafkaMetadata;
+
+			const topics = Object.keys(this.metadataMethods);
+
+			await this.consumer?.subscribe({ topics, fromBeginning: false });
+		}
+
+		await this.consumer?.run({
+			eachMessage: async ({ topic, message }) => {
+				const metadataMethod = this.metadataMethods[topic];
+
+				if (!metadataMethod) {
+					this.logger.error(
+						`There is not a method subscribed to the topic: ${topic}`,
+					);
+					return;
+				}
+
+				const { instance, methodName } = metadataMethod;
+
+				await instance[methodName](message.value?.toString());
+			},
+		});
 	}
 
 	async onModuleDestroy(): Promise<void> {
@@ -64,7 +132,7 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 	async connect() {
 		try {
 			if (!this.producer && !this.consumer)
-				throw new InternalServerErrorException(
+				throw new Error(
 					'No configuration for producer or consumer, check module options',
 				);
 			await this.producer?.connect();
@@ -85,22 +153,10 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 		}
 	}
 
-	async bindAllTopicToConsumer(callback: any, topic: string) {
-		await this.consumer?.subscribe({ topic, fromBeginning: false });
-		await this.consumer?.run({
-			eachMessage: async ({ topic, message }) => {
-				const functionName = SUBSCRIBER_FN_REF_MAP.get(topic);
-				const object = SUBSCRIBER_OBJ_REF_MAP.get(topic);
-				// bind the subscribed functions to topic
-				await object[functionName](message.value?.toString());
-			},
-		});
-	}
-
 	async sendMessage(kafkaTopic: string, kafkaMessages: Message[]) {
 		if (!this.producer) {
-			throw new InternalServerErrorException(
-				'No configuration for producer, check module options',
+			throw new Error(
+				'Producer must be enabled and configured on module to send messages',
 			);
 		}
 
@@ -112,7 +168,7 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 			return metadata;
 		} catch (e) {
 			this.logger.error(e);
-			throw new InternalServerErrorException('Error sending message via kafka');
+			throw new Error('Error sending message via kafka');
 		}
 	}
 }

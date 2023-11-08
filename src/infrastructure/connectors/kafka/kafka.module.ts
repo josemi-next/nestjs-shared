@@ -1,9 +1,14 @@
-import { Global, Module, type DynamicModule, type Provider } from '@nestjs/common';
-import { type KafkaModuleAsyncOptions, type KafkaModuleConfig } from './kafka.config';
-import { KafkaService, KAFKA_OPTIONS } from './kafka.service';
+import { Module, type DynamicModule, type Provider } from '@nestjs/common';
+import { DiscoveryModule } from '@nestjs/core';
+import { KAFKA_OPTIONS, KafkaService } from './kafka.service';
+import {
+	type KafkaModuleAsyncOptions,
+	type KafkaModuleConfig,
+} from './kafka.types';
 
-@Global()
-@Module({})
+@Module({
+	imports: [DiscoveryModule],
+})
 export class KafkaModule {
 	static register(kafkaConfig: KafkaModuleConfig): DynamicModule {
 		return {
@@ -33,7 +38,9 @@ export class KafkaModule {
 		};
 	}
 
-	private static createConnectProviders(options: KafkaModuleAsyncOptions): Provider[] {
+	private static createConnectProviders(
+		options: KafkaModuleAsyncOptions,
+	): Provider[] {
 		return [
 			{
 				provide: KAFKA_OPTIONS,

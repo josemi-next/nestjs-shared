@@ -1,5 +1,9 @@
 import { type ModuleMetadata } from '@nestjs/common';
-import { type ConsumerConfig, type KafkaConfig, type ProducerConfig } from 'kafkajs';
+import {
+	type ConsumerConfig,
+	type KafkaConfig,
+	type ProducerConfig,
+} from 'kafkajs';
 
 type KafkaModuleProducer =
 	| {
@@ -26,8 +30,11 @@ export type KafkaModuleConfig = {
 	KafkaModuleConsumer;
 
 /** CQRS Nest async module options */
-export interface KafkaModuleAsyncOptions extends Pick<ModuleMetadata, 'imports'> {
-	useFactory: (...args: any[]) => Promise<KafkaModuleConfig> | KafkaModuleConfig;
+export interface KafkaModuleAsyncOptions
+	extends Pick<ModuleMetadata, 'imports'> {
+	useFactory: (
+		...args: any[]
+	) => Promise<KafkaModuleConfig> | KafkaModuleConfig;
 	inject?: any[];
 	global?: boolean;
 }
