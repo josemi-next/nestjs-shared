@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.1.0](https://github.com/josemi-next/nestjs-shared/compare/v3.0.1...v3.1.0) (2023-11-08)
+
+### Features
+
+- change lifecycle methods from onmoduleinit to onappbootstrap ([484b3df](https://github.com/josemi-next/nestjs-shared/commit/484b3df41e3edeffc02fe056f4cf48954c10dec0))
+
 ## [3.0.0](https://github.com/josemi-next/nestjs-shared/compare/v2.1.3...v3.0.0) (2023-11-08)
 
 ### ⚠ BREAKING CHANGES
