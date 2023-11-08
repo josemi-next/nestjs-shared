@@ -2,8 +2,8 @@ import {
 	Inject,
 	Injectable,
 	Logger,
-	type OnModuleDestroy,
-	type OnModuleInit,
+	type OnApplicationBootstrap,
+	type OnApplicationShutdown,
 } from '@nestjs/common';
 import { DiscoveryService, MetadataScanner } from '@nestjs/core';
 import {
@@ -27,7 +27,9 @@ type KafkaMetadata = Record<
 >;
 
 @Injectable()
-export class KafkaService implements OnModuleInit, OnModuleDestroy {
+export class KafkaService
+	implements OnApplicationBootstrap, OnApplicationShutdown
+{
 	private readonly logger = new Logger(KafkaService.name);
 	private readonly kafka: Kafka;
 	private readonly producer?: Producer;
@@ -56,7 +58,7 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 			: undefined;
 	}
 
-	async onModuleInit(): Promise<void> {
+	async onApplicationBootstrap(): Promise<void> {
 		await this.connect();
 
 		const kafkaConsumers = this.discoveryService.getProviders({
@@ -125,7 +127,7 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 		});
 	}
 
-	async onModuleDestroy(): Promise<void> {
+	async onApplicationShutdown(): Promise<void> {
 		await this.disconnect();
 	}
 
@@ -135,8 +137,12 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 				throw new Error(
 					'No configuration for producer or consumer, check module options',
 				);
-			await this.producer?.connect();
-			await this.consumer?.connect();
+			await this.producer?.connect().then(() => {
+				this.logger.log('Producer connected');
+			});
+			await this.consumer?.connect().then(() => {
+				this.logger.log('Consumer connected');
+			});
 		} catch (e) {
 			this.logger.error(e);
 			throw e;
@@ -145,8 +151,12 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 
 	async disconnect() {
 		try {
-			await this.producer?.disconnect();
-			await this.consumer?.disconnect();
+			await this.producer?.disconnect().then(() => {
+				this.logger.log('Producer disconnected');
+			});
+			await this.consumer?.disconnect().then(() => {
+				this.logger.log('Consumer disconnected');
+			});
 		} catch (e) {
 			this.logger.error(e);
 			throw e;
