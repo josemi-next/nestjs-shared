@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.0.0](https://github.com/josemi-next/nestjs-shared/compare/v2.1.3...v3.0.0) (2023-11-08)
+
+### ⚠ BREAKING CHANGES
+
+- kafka module with two decorators one for class and one for method instead abstract
+  class
+
+### Features
+
+- improve kafka client implementation ([ceb592f](https://github.com/josemi-next/nestjs-shared/commit/ceb592f69daf66355766536b7ebd7e8312a52c70))
+
 ## [2.1.3](https://github.com/josemi-next/nestjs-shared/compare/v2.1.2...v2.1.3) (2023-11-06)
 
 ### Bug Fixes
